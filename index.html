@@ -17,7 +17,7 @@
     <a class="brand" href="#home">✦ EXPLORE <span>INDIA</span></a>
     <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
     <nav class="navlinks" id="navlinks">
-      <a href="#home">Home</a><a href="#destinations">Destinations</a><a href="#planner">Trip Planner</a><a href="#budget">Budget</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a href="#home">Home</a><a href="#destinations">Destinations</a><a href="#planner">Trip Planner</a><a href="#budget">Full Trip Budget</a><a href="#about">About</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -57,22 +57,38 @@
   </div>
 </section>
 <section class="section" id="budget">
-  <div class="section-head"><div><div class="kicker">Spend with confidence</div><h2>Estimate your travel budget.</h2><p class="section-intro">These are planning estimates, not live prices. Adjust them to match your dates, comfort level and transport choices.</p></div></div>
+  <div class="section-head"><div><div class="kicker">Plan the whole journey</div><h2>Transport, stay, food & money.</h2><p class="section-intro">Build a practical trip budget from your starting city to your destination. Estimates are editable planning figures, not live ticket prices or hotel quotes.</p></div></div>
   <div class="tools-grid">
-    <div class="panel"><h3>Budget calculator</h3><p>Calculate an approximate total for your group.</p>
+    <div class="panel"><h3>Complete trip planner</h3><p>Choose how you will travel, where you will stay and your comfort level.</p>
       <div class="form-grid">
-        <div class="control wide"><label class="label" for="budgetDestination">Destination</label><select class="field" id="budgetDestination"></select></div>
-        <div class="control"><label class="label" for="people">Travellers</label><input class="field" id="people" type="number" min="1" max="30" value="2"></div>
-        <div class="control"><label class="label" for="budgetDays">Days</label><input class="field" id="budgetDays" type="number" min="1" max="60" value="3"></div>
-        <div class="control"><label class="label" for="hotel">Hotel per person / night (₹)</label><input class="field" id="hotel" type="number" min="0" value="1800"></div>
-        <div class="control"><label class="label" for="food">Food per person / day (₹)</label><input class="field" id="food" type="number" min="0" value="700"></div>
-        <div class="control"><label class="label" for="transport">Transport per person (₹)</label><input class="field" id="transport" type="number" min="0" value="1500"></div>
-        <div class="control"><label class="label" for="activities">Activities per person / day (₹)</label><input class="field" id="activities" type="number" min="0" value="500"></div>
+        <div class="control wide"><label class="label" for="originCity">Starting city</label><input class="field" id="originCity" placeholder="e.g. Delhi, Mumbai, Jalandhar" value="Delhi"></div>
+        <div class="control wide"><label class="label" for="fullDestination">Destination</label><select class="field" id="fullDestination"></select></div>
+        <div class="control"><label class="label" for="startDate">Departure date (optional)</label><input class="field" id="startDate" type="date"></div>
+        <div class="control"><label class="label" for="fullDays">Trip duration (days)</label><input class="field" id="fullDays" type="number" min="1" max="60" value="3"></div>
+        <div class="control"><label class="label" for="adults">Adults</label><input class="field" id="adults" type="number" min="1" max="30" value="2"></div>
+        <div class="control"><label class="label" for="children">Children</label><input class="field" id="children" type="number" min="0" max="20" value="0"></div>
+        <div class="control"><label class="label" for="travelMode">Main transport</label><select class="field" id="travelMode"><option value="train">Train (return estimate)</option><option value="bus">Bus (return estimate)</option><option value="flight">Flight (return estimate)</option><option value="car">Own car (fuel + toll estimate)</option><option value="bike">Own bike (fuel + toll estimate)</option><option value="local">Already at destination</option></select></div>
+        <div class="control"><label class="label" for="comfort">Travel budget style</label><select class="field" id="comfort"><option value="budget">Budget</option><option value="standard" selected>Standard</option><option value="premium">Premium</option></select></div>
+        <div class="control"><label class="label" for="stayType">Accommodation</label><select class="field" id="stayType"><option value="hostel">Hostel / dorm</option><option value="budget">Budget hotel</option><option value="standard" selected>Standard hotel</option><option value="premium">Premium hotel / resort</option><option value="none">No paid stay</option></select></div>
+        <div class="control"><label class="label" for="rooms">Rooms needed</label><input class="field" id="rooms" type="number" min="1" max="15" value="1"></div>
+        <div class="control"><label class="label" for="mealStyle">Food style</label><select class="field" id="mealStyle"><option value="simple">Simple / local food</option><option value="mixed" selected>Mixed restaurants</option><option value="premium">Premium restaurants</option></select></div>
+        <div class="control"><label class="label" for="localTravel">Local transport per person / day (₹)</label><input class="field" id="localTravel" type="number" min="0" value="400"></div>
+        <div class="control"><label class="label" for="sightseeing">Activities & entry tickets / person / day (₹)</label><input class="field" id="sightseeing" type="number" min="0" value="500"></div>
+        <div class="control"><label class="label" for="shopping">Shopping / extras for whole group (₹)</label><input class="field" id="shopping" type="number" min="0" value="1000"></div>
+        <div class="control"><label class="label" for="bufferPercent">Emergency buffer</label><select class="field" id="bufferPercent"><option value="0.10">10%</option><option value="0.12" selected>12%</option><option value="0.15">15%</option><option value="0.20">20%</option></select></div>
+        <div class="control wide"><label class="label" for="intercityCost">Return transport budget for whole group (₹)</label><input class="field" id="intercityCost" type="number" min="0" value="3000"><span class="cost">This is an editable placeholder. Replace it with the actual round-trip fare or your fuel + toll estimate after checking your route.</span></div>
       </div>
-      <button class="btn" id="calculateBudget">Calculate budget</button>
-      <div class="output" id="budgetOutput" aria-live="polite"><strong>₹ 0</strong><p>Enter your travel details and calculate.</p></div>
+      <div class="hero-actions"><button class="btn" id="calculateFullTrip">Calculate my complete trip</button><button class="small-btn" id="resetFullTrip" type="button">Reset estimates</button></div>
+      <div class="output" id="fullTripOutput" aria-live="polite"><strong>Your trip estimate will appear here</strong><p>Fill in your group, transport and stay preferences, then calculate.</p></div>
     </div>
-    <div class="panel"><h3>Budget tips</h3><p>Small choices can make a trip more affordable without losing the experience.</p><div class="itinerary-day"><strong>Travel in shoulder season</strong><br><span class="cost">Compare weekday and off-peak travel dates.</span></div><div class="itinerary-day"><strong>Book transport early</strong><br><span class="cost">Check cancellation rules before paying.</span></div><div class="itinerary-day"><strong>Keep a buffer</strong><br><span class="cost">Add 10–15% for unexpected costs.</span></div><div class="itinerary-day"><strong>Check local guidance</strong><br><span class="cost">Opening hours, permits and access can change. Confirm before departure.</span></div></div>
+    <div class="panel"><h3>How we estimate costs</h3><p>Use this as a planning checklist, then replace estimates with actual prices before booking.</p>
+      <div class="itinerary-day"><strong>🚆 Train / 🚌 Bus / ✈️ Flight</strong><br><span class="cost">Enter the return fare for everyone in the transport budget field. Prices depend on route, dates, class and availability.</span></div>
+      <div class="itinerary-day"><strong>🚗 Own car / 🏍️ Bike</strong><br><span class="cost">Estimate round-trip distance ÷ mileage × current fuel price, then add tolls and parking. The website does not know your route distance automatically.</span></div>
+      <div class="itinerary-day"><strong>🛏️ Accommodation</strong><br><span class="cost">Budget defaults: hostel ₹600, budget hotel ₹1,500, standard hotel ₹3,000, premium ₹7,000 per room/night. Edit to match your dates and city.</span></div>
+      <div class="itinerary-day"><strong>🍲 Food and daily expenses</strong><br><span class="cost">Food, local transport and sightseeing are multiplied by the number of people and days. Children are included in headcount for a conservative estimate.</span></div>
+      <div class="itinerary-day"><strong>🧾 Before you book</strong><br><span class="cost">Check official railway/airline/bus sites, hotel cancellation terms, attraction opening hours, permits, weather and safety guidance. This demo does not book or charge you.</span></div>
+      <button class="small-btn" id="copyTripSummary" type="button">Copy trip summary</button><p class="cost" id="copyNote">Calculate your trip first to create a shareable summary.</p>
+    </div>
   </div>
 </section>
 <section class="section" id="about"><div class="about"><img src="https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&w=1200&q=80" alt="Colourful Indian architecture"><div><div class="kicker">A little about us</div><h2>India is many journeys in one.</h2><p>Explore India is a student-built travel discovery website made to bring destination inspiration, simple itinerary planning and basic budget estimates into one place.</p><p>Destination details and cost figures are indicative. Always verify transport, accommodation, weather, local rules and attraction timings from official sources before travelling.</p><a class="btn" href="#destinations">Find your next destination →</a></div></div></section>
@@ -184,6 +200,7 @@ function populateSelects(){
  const opts=allDestinations.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(d=>`<option value="${d.name}">${d.name} — ${d.state}</option>`).join("");
  document.getElementById("plannerDestination").innerHTML=opts;
  document.getElementById("budgetDestination").innerHTML=opts;
+ document.getElementById("fullDestination").innerHTML=opts;
 }
 function addTrip(name){
  if(!tripItems.includes(name))tripItems.push(name);
@@ -221,6 +238,36 @@ function calculateBudget(){
  const subtotal=lodging+meals+local+fun,buffer=subtotal*.12,total=subtotal+buffer;
  document.getElementById("budgetOutput").innerHTML=`<span class="cost">Estimated group total · ${people} traveller(s) · ${days} day(s)</span><br><strong>${money(total)}</strong><ul><li>Accommodation: ${money(lodging)}</li><li>Food: ${money(meals)}</li><li>Transport: ${money(local)}</li><li>Activities: ${money(fun)}</li><li>12% contingency: ${money(buffer)}</li></ul><p class="cost">Approx. ${money(total/people)} per person. Estimate excludes flights/long-distance tickets unless included in transport.</p>`;
 }
+const stayRates={hostel:600,budget:1500,standard:3000,premium:7000,none:0};
+const mealRates={simple:350,mixed:800,premium:1800};
+const transportDefaults={train:3000,bus:2200,flight:12000,car:5000,bike:1800,local:0};
+let lastTripSummary="";
+function setModeDefault(){const mode=document.getElementById("travelMode").value;document.getElementById("intercityCost").value=transportDefaults[mode]??3000;}
+function calculateFullTrip(){
+ const origin=document.getElementById("originCity").value.trim()||"Your starting city";
+ const name=document.getElementById("fullDestination").value;
+ const d=allDestinations.find(x=>x.name===name);
+ const days=Math.max(1,Math.min(60,Number(document.getElementById("fullDays").value)||1));
+ const nights=Math.max(0,days-1), adults=Math.max(1,Math.min(30,Number(document.getElementById("adults").value)||1)), children=Math.max(0,Math.min(20,Number(document.getElementById("children").value)||0));
+ const people=adults+children, rooms=Math.max(1,Math.min(15,Number(document.getElementById("rooms").value)||1));
+ const stay=document.getElementById("stayType").value, meals=document.getElementById("mealStyle").value;
+ const hotel=stayRates[stay]*rooms*nights, food=mealRates[meals]*people*days;
+ const mode=document.getElementById("travelMode").value, intercity=Math.max(0,Number(document.getElementById("intercityCost").value)||0);
+ const local=Math.max(0,Number(document.getElementById("localTravel").value)||0)*people*days;
+ const activities=Math.max(0,Number(document.getElementById("sightseeing").value)||0)*people*days;
+ const extras=Math.max(0,Number(document.getElementById("shopping").value)||0);
+ const subtotal=hotel+food+intercity+local+activities+extras;
+ const bufferRate=Number(document.getElementById("bufferPercent").value)||.12, buffer=subtotal*bufferRate,total=subtotal+buffer;
+ const date=document.getElementById("startDate").value;
+ const comfort=document.getElementById("comfort").selectedOptions[0].text;
+ const dateLine=date?` · Departure: ${date}`:"";
+ const modeLabel=document.getElementById("travelMode").selectedOptions[0].text;
+ const perPerson=total/people;
+ lastTripSummary=`EXPLORE INDIA — TRIP ESTIMATE\nFrom: ${origin}\nDestination: ${name}, ${d?.state||"India"}\nDuration: ${days} days / ${nights} nights${dateLine}\nTravellers: ${adults} adult(s), ${children} child(ren)\nStyle: ${comfort}\nTransport: ${modeLabel}\nAccommodation: ${document.getElementById("stayType").selectedOptions[0].text} (${rooms} room(s))\n\nEstimated costs (INR):\nReturn transport: ${money(intercity)}\nAccommodation: ${money(hotel)}\nFood: ${money(food)}\nLocal transport: ${money(local)}\nSightseeing & activities: ${money(activities)}\nShopping / extras: ${money(extras)}\nEmergency buffer (${Math.round(bufferRate*100)}%): ${money(buffer)}\nTOTAL GROUP ESTIMATE: ${money(total)}\nApprox. per person: ${money(perPerson)}\n\nPlanning estimate only; confirm actual fares, hotel rates, route, fuel, tolls and opening hours before travel.`;
+ document.getElementById("fullTripOutput").innerHTML=`<span class="cost">${origin} → ${name} · ${people} traveller(s) · ${days} day(s) / ${nights} night(s)</span><br><strong>${money(total)}</strong><p>Estimated group total · approximately <b>${money(perPerson)} per person</b></p><ul><li>Return transport (${modeLabel}): ${money(intercity)}</li><li>Accommodation (${rooms} room(s), ${nights} night(s)): ${money(hotel)}</li><li>Food: ${money(food)}</li><li>Local transport: ${money(local)}</li><li>Sightseeing & activities: ${money(activities)}</li><li>Shopping / extras: ${money(extras)}</li><li>Emergency buffer: ${money(buffer)}</li></ul><p class="cost">${stay==="none"?"No paid accommodation included. ":"Accommodation uses a sample rate per room/night. "}Transport estimate is a placeholder and must be verified. No live prices or bookings are connected.</p>`;
+ document.getElementById("copyNote").textContent="Summary ready to copy and share.";
+}
+function resetFullTrip(){document.getElementById("originCity").value="Delhi";document.getElementById("fullDays").value=3;document.getElementById("adults").value=2;document.getElementById("children").value=0;document.getElementById("rooms").value=1;document.getElementById("travelMode").value="train";document.getElementById("comfort").value="standard";document.getElementById("stayType").value="standard";document.getElementById("mealStyle").value="mixed";document.getElementById("localTravel").value=400;document.getElementById("sightseeing").value=500;document.getElementById("shopping").value=1000;document.getElementById("bufferPercent").value="0.12";setModeDefault();calculateFullTrip();}
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
 searchInput.addEventListener("input",renderDestinations);
 categoryFilter.addEventListener("change",renderDestinations);
@@ -229,12 +276,14 @@ document.getElementById("regionChips").querySelectorAll("[data-region]").forEach
 document.getElementById("generatePlan").addEventListener("click",generatePlan);
 document.getElementById("clearTrip").addEventListener("click",()=>{tripItems=[];renderTripList();showToast("Trip list cleared");});
 document.getElementById("useFirstTrip").addEventListener("click",()=>{if(!tripItems.length){showToast("Add a destination to your trip list first");return;}document.getElementById("plannerDestination").value=tripItems[0];generatePlan();document.getElementById("planner").scrollIntoView({behavior:"smooth"});});
-document.getElementById("calculateBudget").addEventListener("click",calculateBudget);
-document.getElementById("budgetDestination").addEventListener("change",()=>{const d=allDestinations.find(x=>x.name===document.getElementById("budgetDestination").value);if(d){document.getElementById("hotel").value=Math.round(d.cost*.55/100)*100;document.getElementById("food").value=Math.round(d.cost*.22/50)*50;document.getElementById("transport").value=Math.round(d.cost*.35/100)*100;document.getElementById("activities").value=Math.round(d.cost*.16/50)*50;}});
+document.getElementById("calculateFullTrip").addEventListener("click",calculateFullTrip);
+document.getElementById("resetFullTrip").addEventListener("click",resetFullTrip);
+document.getElementById("travelMode").addEventListener("change",setModeDefault);
+document.getElementById("copyTripSummary").addEventListener("click",()=>{if(!lastTripSummary){showToast("Calculate your trip first");return;}const ta=document.createElement("textarea");ta.value=lastTripSummary;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast("Trip summary copied");}catch(e){showToast("Please select and copy the summary from the estimate");}ta.remove();});
 document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("navlinks").classList.toggle("open"));
 document.querySelectorAll("#navlinks a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navlinks").classList.remove("open")));
 document.getElementById("year").textContent=new Date().getFullYear();
-populateSelects();renderDestinations();calculateBudget();generatePlan();
+populateSelects();renderDestinations();generatePlan();setModeDefault();calculateFullTrip();
 </script>
 </body>
 </html>
