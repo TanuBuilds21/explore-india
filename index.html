@@ -1,871 +1,240 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Discover India, explore destinations, plan itineraries and estimate your travel budget with Explore India.">
-<title>Explore India | Discover. Plan. Travel.</title>
-
+<meta name="description" content="Explore India — discover destinations, build a trip plan and estimate your travel budget.">
+<title>Explore India | Discover Your Next Journey</title>
 <style>
-:root {
-  --green: #183b32;
-  --green2: #285647;
-  --gold: #e6b65e;
-  --cream: #faf8f2;
-  --white: #fff;
-  --muted: #697770;
-  --border: #e5e7df;
-  --shadow: 0 12px 35px rgba(22, 50, 41, .09);
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 85px; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--green);
-  background: var(--cream);
-  line-height: 1.65;
-}
-button, input, select, textarea { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-a { color: inherit; }
-img { display: block; max-width: 100%; }
-button { cursor: pointer; }
-.container { width: min(1160px, 90%); margin: auto; }
-header {
-  background: rgba(255,255,255,.97);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid var(--border);
-}
-.nav {
-  min-height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-.logo { font-weight: 900; font-size: 19px; letter-spacing: 1px; }
-.logo span { color: #b27b24; }
-.nav-links { display: flex; gap: 25px; align-items: center; }
-.nav-links a { text-decoration: none; font-size: 14px; font-weight: 700; }
-.nav-links a:hover { color: #ad7927; }
-.menu-toggle {
-  display: none;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
-}
-.hero {
-  min-height: 570px;
-  display: flex;
-  align-items: center;
-  color: white;
-  background:
-    linear-gradient(90deg, rgba(12,39,32,.86), rgba(12,39,32,.16)),
-    url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=2000&q=85") center 45% / cover;
-}
-.hero-content { max-width: 720px; padding: 90px 0; }
-.eyebrow {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #b58a43;
-}
-.hero .eyebrow { color: var(--gold); }
-h1, h2, h3, p { margin-top: 0; }
-h1 { font-size: clamp(42px, 6.5vw, 76px); line-height: 1.08; margin: 18px 0; }
-.hero p { font-size: 18px; max-width: 540px; color: #f1f4ef; }
-.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: 7px;
-  padding: 12px 19px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: transform .2s, background .2s;
-}
-.btn:hover { transform: translateY(-2px); }
-.btn-gold { background: var(--gold); color: #20362c; }
-.btn-green { background: var(--green); color: white; }
-.btn-light { background: white; color: var(--green); }
-.btn-outline { background: transparent; border-color: var(--border); color: var(--green); }
-.stats { display: flex; gap: 35px; margin-top: 42px; flex-wrap: wrap; }
-.stat strong { display: block; font-size: 23px; }
-.stat span { font-size: 12px; color: #e4e9e3; }
-section { padding: 78px 0; }
-.section-heading {
-  display: flex; justify-content: space-between; align-items: end;
-  gap: 20px; margin-bottom: 30px;
-}
-.section-heading h2, .panel h2, .about h2 {
-  font-size: clamp(28px, 4vw, 40px); line-height: 1.2; margin: 8px 0;
-}
-.section-heading p { color: var(--muted); margin-bottom: 0; }
-.search-tools {
-  display: grid;
-  grid-template-columns: minmax(180px, 1fr) 210px;
-  gap: 12px;
-  margin: 25px 0;
-}
-.field {
-  width: 100%;
-  padding: 13px 14px;
-  background: white;
-  border: 1px solid #dce2da;
-  border-radius: 8px;
-  color: var(--green);
-  outline: none;
-}
-.field:focus { border-color: #548775; box-shadow: 0 0 0 3px #54877520; }
-.filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 25px; }
-.filter-btn {
-  background: white; border: 1px solid var(--border);
-  padding: 9px 15px; border-radius: 30px; color: var(--green);
-}
-.filter-btn.active, .filter-btn:hover { background: var(--green); color: white; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.card {
-  background: white; border: 1px solid var(--border);
-  border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
-  transition: transform .22s;
-}
-.card:hover { transform: translateY(-5px); }
-.card[hidden] { display: none !important; }
-.card img { width: 100%; height: 225px; object-fit: cover; background: #e5e8df; }
-.card-body { padding: 21px; }
-.card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.tag { font-size: 11px; font-weight: 800; background: #edf3ec; color: #315b49; border-radius: 30px; padding: 5px 10px; }
-.card h3 { font-size: 22px; margin: 12px 0 7px; }
-.card p { font-size: 14px; color: var(--muted); }
-.card .btn { width: 100%; margin-top: 8px; }
-.empty { color: var(--muted); padding: 20px 0; }
-.soft-section { background: #f0f2e9; }
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.feature {
-  padding: 25px; background: white; border: 1px solid var(--border);
-  border-radius: 13px;
-}
-.feature-icon { font-size: 30px; margin-bottom: 12px; }
-.feature h3 { margin-bottom: 7px; }
-.feature p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
-.panel {
-  background: white; padding: clamp(22px, 4vw, 40px);
-  border: 1px solid var(--border); border-radius: 17px; box-shadow: var(--shadow);
-}
-.planner-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
-.form-group { display: flex; flex-direction: column; gap: 7px; }
-.form-group label { font-size: 13px; font-weight: 800; }
-.form-group.full { grid-column: 1 / -1; }
-.help { font-size: 12px; color: var(--muted); }
-.result {
-  border-radius: 12px; padding: 24px; background: #f1f4ed;
-  min-height: 200px;
-}
-.result h3 { margin-bottom: 8px; }
-.result-day { padding: 14px 0; border-bottom: 1px solid #dce2d7; }
-.result-day:last-child { border-bottom: 0; }
-.result-day strong { display: block; }
-.result-day p { color: var(--muted); margin: 5px 0 0; font-size: 14px; }
-.budget-layout { display: grid; grid-template-columns: 1fr .8fr; gap: 28px; }
-.budget-total {
-  background: var(--green); color: white; border-radius: 13px; padding: 28px;
-  display: flex; flex-direction: column; justify-content: center;
-}
-.budget-total .label { color: #cbd8ce; font-size: 14px; }
-.budget-total output { font-size: clamp(32px, 4vw, 45px); font-weight: 900; overflow-wrap: anywhere; }
-.budget-total p { color: #e1e9e2; font-size: 14px; }
-.breakdown { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ffffff2c; }
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.about img { width: 100%; height: 360px; object-fit: cover; border-radius: 15px; }
-.about p { color: var(--muted); }
-.contact-layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: 30px; }
-.contact-copy { background: var(--green); color: white; border-radius: 14px; padding: 28px; }
-.contact-copy p { color: #dce6dd; }
-.notice { font-size: 13px; padding: 12px; border-radius: 8px; background: #fff4d8; color: #75521a; }
-.success { background: #e7f5e9; color: #245a36; padding: 13px; border-radius: 8px; margin-top: 15px; }
-footer { background: #122e27; color: white; padding: 36px 0; }
-.footer-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-footer p { color: #c7d4cb; font-size: 13px; margin: 8px 0 0; }
-footer a { color: white; }
-@media(max-width: 850px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-  .planner-layout, .budget-layout, .about, .contact-layout { grid-template-columns: 1fr; }
-  .feature-grid { grid-template-columns: 1fr 1fr; }
-  .nav-links { gap: 14px; }
-}
-@media(max-width: 600px) {
-  .nav { min-height: 67px; flex-wrap: wrap; padding: 12px 0; }
-  .menu-toggle { display: block; }
-  .nav-links { display: none; width: 100%; flex-direction: column; align-items: stretch; padding: 8px 0; }
-  .nav-links.open { display: flex; }
-  .nav-links a { padding: 9px 0; }
-  .hero { min-height: 530px; }
-  .hero-content { padding: 65px 0; }
-  section { padding: 55px 0; }
-  .grid, .feature-grid, .search-tools, .form-grid { grid-template-columns: 1fr; }
-  .section-heading { align-items: flex-start; flex-direction: column; }
-  .card img { height: 215px; }
-  .about img { height: 260px; }
-  .stats { gap: 22px; }
-}
+:root{--ink:#182522;--muted:#64736d;--cream:#fbf8f1;--paper:#fff;--green:#174d3a;--lime:#e7ad35;--line:#e8e5dc;--shadow:0 12px 35px #172b2210}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream);line-height:1.55}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}.nav{position:sticky;top:0;z-index:20;background:#fffdf8ee;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1200px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:900;letter-spacing:.12em;font-size:1rem;color:var(--green)}.brand span{color:var(--lime)}.navlinks{display:flex;align-items:center;gap:24px;font-size:.92rem;color:#48564f}.navlinks a:hover{color:var(--green)}.menu-btn{display:none;background:none;border:0;font-size:1.5rem}.hero{min-height:560px;display:flex;align-items:center;background:linear-gradient(90deg,#0b241ee8 0%,#0b241e99 48%,#0b241e18 100%),url('https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=2000&q=85') center/cover;color:#fff}.hero-inner{max-width:1200px;width:100%;margin:auto;padding:85px 24px}.eyebrow{color:#f5c85d;letter-spacing:.22em;font-weight:800;text-transform:uppercase;font-size:.75rem}.hero h1{font-size:clamp(2.8rem,7vw,5.8rem);line-height:.98;max-width:750px;margin:18px 0}.hero p{font-size:1.08rem;max-width:560px;color:#f1f4f1}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;background:var(--lime);color:#201e15;padding:12px 18px;font-weight:800}.btn:hover{filter:brightness(.96);transform:translateY(-1px)}.btn.secondary{background:#fff;color:var(--green);border:1px solid var(--line)}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.section{max-width:1200px;margin:auto;padding:76px 22px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}.kicker{font-size:.75rem;color:#9b6c0b;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.section h2{font-size:clamp(2rem,4vw,3rem);line-height:1.08;margin:7px 0 0;letter-spacing:-.04em}.section-intro{max-width:560px;color:var(--muted);margin:10px 0 0}.toolbar{display:grid;grid-template-columns:minmax(220px,1.5fr) repeat(2,minmax(150px,.7fr));gap:12px;margin:24px 0 18px}.field{width:100%;border:1px solid #dcded6;border-radius:10px;background:#fff;padding:12px 13px;color:var(--ink);outline:none}.field:focus{border-color:#38785b;box-shadow:0 0 0 3px #38785b1a}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.chip{border:1px solid #deded4;border-radius:999px;background:#fff;padding:8px 14px;color:#516059;font-size:.88rem}.chip.active,.chip:hover{background:var(--green);color:#fff;border-color:var(--green)}.result-line{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.9rem;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}.card:hover{transform:translateY(-4px);box-shadow:0 18px 38px #172b2218}.card img{width:100%;height:205px;object-fit:cover;background:#e2e5df}.card-body{padding:17px;display:flex;flex-direction:column;gap:8px;flex:1}.tag-row{display:flex;justify-content:space-between;align-items:center;gap:8px}.tag{display:inline-block;border-radius:999px;background:#edf3ed;color:#315d45;padding:4px 9px;font-size:.75rem;font-weight:800}.cost{font-size:.82rem;color:var(--muted)}.card h3{margin:2px 0 0;font-size:1.23rem;line-height:1.2}.card p{margin:0;color:var(--muted);font-size:.91rem;flex:1}.card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:7px}.small-btn{border:1px solid #dce3dc;background:#fff;border-radius:9px;padding:8px 11px;color:var(--green);font-weight:750}.small-btn:hover{background:#edf3ed}.empty{grid-column:1/-1;text-align:center;padding:40px;border:1px dashed #cbd2c9;border-radius:14px;color:var(--muted)}.feature-band{background:#eaf0e8}.feature-grid{max-width:1200px;margin:auto;padding:68px 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature{background:#fffdf8;border:1px solid #dfe7dc;padding:24px;border-radius:16px}.feature .icon{font-size:1.8rem}.feature h3{margin:10px 0 6px}.feature p{color:var(--muted);margin:0}.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}.panel h3{margin:0 0 5px;font-size:1.4rem}.panel>p{margin:0 0 18px;color:var(--muted)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.label{display:block;font-weight:750;font-size:.85rem;margin-bottom:6px}.control{margin-bottom:13px}.wide{grid-column:1/-1}.output{margin-top:16px;padding:16px;border-radius:12px;background:#edf3ed;border:1px solid #d7e4d7}.output strong{font-size:1.45rem;color:var(--green)}.output ul{margin:8px 0 0;padding-left:20px}.itinerary-day{margin:10px 0;padding:12px;border-radius:10px;background:#fff;border:1px solid #dce6da}.itinerary-day strong{color:var(--green)}.about{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}.about img{width:100%;height:350px;object-fit:cover;border-radius:18px}.about p{color:var(--muted)}.contact{background:var(--green);color:#fff}.contact .section-intro{color:#d8e5dc}.contact .kicker{color:#f5c85d}.contact-row{display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap}.contact .btn{background:#f5c85d}footer{background:#102f24;color:#c9d9cf;padding:26px 22px}.footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.88rem}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#102f24;color:white;padding:12px 18px;border-radius:10px;box-shadow:var(--shadow);z-index:50;display:none}.toast.show{display:block}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-grid{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar .search-wrap{grid-column:1/-1}.about{grid-template-columns:1fr}.about img{height:280px}}@media(max-width:620px){.nav-inner{padding:12px 16px}.menu-btn{display:block}.navlinks{display:none;position:absolute;top:58px;left:0;right:0;background:#fffdf8;border-bottom:1px solid var(--line);padding:18px 22px;flex-direction:column;align-items:flex-start;gap:16px}.navlinks.open{display:flex}.hero{min-height:530px}.hero-inner{padding:65px 20px}.section{padding:55px 16px}.section-head{align-items:start;flex-direction:column}.grid,.feature-grid,.tools-grid{grid-template-columns:1fr}.feature-grid{padding:48px 16px}.toolbar{grid-template-columns:1fr}.toolbar .search-wrap{grid-column:auto}.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}.card img{height:220px}.panel{padding:19px}}
 </style>
 </head>
-
 <body>
-<header>
-  <nav class="nav container" aria-label="Main navigation">
-    <a class="logo" href="#home" style="text-decoration:none">✦ EXPLORE <span>INDIA</span></a>
-    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-label="Toggle navigation">☰ Menu</button>
-    <div class="nav-links" id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#destinations">Destinations</a>
-      <a href="#planner">Trip Planner</a>
-      <a href="#budget">Budget</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#home">✦ EXPLORE <span>INDIA</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+    <nav class="navlinks" id="navlinks">
+      <a href="#home">Home</a><a href="#destinations">Destinations</a><a href="#planner">Trip Planner</a><a href="#budget">Budget</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
-
 <main>
-<section class="hero" id="home">
-  <div class="container hero-content">
-    <div class="eyebrow">Your journey begins here</div>
-    <h1>Discover the beauty of India.</h1>
-    <p>From peaceful mountain escapes to colourful heritage cities, find inspiration for your next extraordinary journey.</p>
-    <div class="actions">
-      <a class="btn btn-gold" href="#destinations">Explore Destinations →</a>
-      <a class="btn btn-light" href="#planner">Plan Your Trip</a>
+<section class="hero" id="home"><div class="hero-inner">
+  <div class="eyebrow">Your journey begins here</div>
+  <h1>Discover the<br>beauty of India.</h1>
+  <p>From peaceful mountain escapes to colourful heritage cities, find your next extraordinary journey across India.</p>
+  <div class="hero-actions"><a class="btn" href="#destinations">Explore destinations →</a><a class="btn secondary" href="#planner">Plan your trip</a></div>
+</div></section>
+<section class="section" id="destinations">
+  <div class="section-head"><div><div class="kicker">The destination guide</div><h2>Find your kind of escape.</h2><p class="section-intro">Browse 50 new destinations across India, search by place or state, and filter by travel style. Use “Add to trip” to send a destination to the planner.</p></div><div class="tag">50+ new destinations</div></div>
+  <div class="toolbar">
+    <div class="search-wrap"><input class="field" id="searchInput" type="search" placeholder="Search destination, state or experience…" aria-label="Search destinations"></div>
+    <select class="field" id="categoryFilter" aria-label="Filter by category"><option value="All">All experiences</option><option>Heritage</option><option>Mountains</option><option>Beach</option><option>Nature</option><option>Spiritual</option><option>Adventure</option><option>City</option></select>
+    <select class="field" id="sortFilter" aria-label="Sort destinations"><option value="featured">Sort: Featured</option><option value="az">Name: A–Z</option><option value="costLow">Budget: Low to high</option><option value="costHigh">Budget: High to low</option></select>
+  </div>
+  <div class="chips" id="regionChips"><button class="chip active" data-region="All">All India</button><button class="chip" data-region="North">North</button><button class="chip" data-region="South">South</button><button class="chip" data-region="East">East</button><button class="chip" data-region="West">West</button><button class="chip" data-region="Central">Central</button><button class="chip" data-region="Northeast">Northeast</button><button class="chip" data-region="Islands">Islands</button></div>
+  <div class="result-line"><span id="resultCount">Loading destinations…</span><span>Indicative per-person daily costs</span></div>
+  <div class="grid" id="destinationGrid"></div>
+</section>
+<section class="feature-band"><div class="feature-grid">
+  <article class="feature"><div class="icon">🧭</div><h3>Explore smarter</h3><p>Search by destination, state, region or experience to quickly find a place that suits your trip.</p></article>
+  <article class="feature"><div class="icon">🗺️</div><h3>Build an itinerary</h3><p>Add places to your trip and create a simple day-by-day starter itinerary in seconds.</p></article>
+  <article class="feature"><div class="icon">₹</div><h3>Know your budget</h3><p>Estimate accommodation, meals, local transport and activities before you go.</p></article>
+</div></section>
+<section class="section" id="planner">
+  <div class="section-head"><div><div class="kicker">Your travel canvas</div><h2>Plan a trip that feels like you.</h2><p class="section-intro">Choose a destination, number of days and travel style. The planner uses the destination list above and gives you a starter itinerary to customise.</p></div></div>
+  <div class="tools-grid">
+    <div class="panel"><h3>Trip planner</h3><p>Make a quick plan for your next getaway.</p>
+      <div class="control"><label class="label" for="plannerDestination">Destination</label><select class="field" id="plannerDestination"></select></div>
+      <div class="form-grid"><div class="control"><label class="label" for="tripDays">Trip length</label><select class="field" id="tripDays"><option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="7">7 days</option></select></div><div class="control"><label class="label" for="tripStyle">Travel style</label><select class="field" id="tripStyle"><option>Balanced</option><option>Culture & food</option><option>Nature & outdoors</option><option>Relaxed</option><option>Adventure</option></select></div></div>
+      <button class="btn" id="generatePlan">Generate itinerary</button><button class="small-btn" id="clearTrip" type="button">Clear trip list</button>
+      <div class="output" id="plannerOutput" aria-live="polite"><strong>Your itinerary appears here</strong><p>Select a destination and generate a plan.</p></div>
     </div>
-    <div class="stats">
-      <div class="stat"><strong>8</strong><span>DESTINATIONS</span></div>
-      <div class="stat"><strong>4</strong><span>TRAVEL STYLES</span></div>
-      <div class="stat"><strong>1</strong><span>INCREDIBLE INDIA</span></div>
-    </div>
+    <div class="panel"><h3>My trip list</h3><p>Places added from destination cards will appear here.</p><div id="tripList"><p class="cost">No destinations added yet. Choose “Add to trip” on any destination card.</p></div><button class="small-btn" id="useFirstTrip" type="button">Plan first saved destination</button></div>
   </div>
 </section>
-
-<section id="destinations">
-  <div class="container">
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">Curated for you</div>
-        <h2>Find your next escape</h2>
-        <p>Explore destinations and discover places worth travelling for.</p>
+<section class="section" id="budget">
+  <div class="section-head"><div><div class="kicker">Spend with confidence</div><h2>Estimate your travel budget.</h2><p class="section-intro">These are planning estimates, not live prices. Adjust them to match your dates, comfort level and transport choices.</p></div></div>
+  <div class="tools-grid">
+    <div class="panel"><h3>Budget calculator</h3><p>Calculate an approximate total for your group.</p>
+      <div class="form-grid">
+        <div class="control wide"><label class="label" for="budgetDestination">Destination</label><select class="field" id="budgetDestination"></select></div>
+        <div class="control"><label class="label" for="people">Travellers</label><input class="field" id="people" type="number" min="1" max="30" value="2"></div>
+        <div class="control"><label class="label" for="budgetDays">Days</label><input class="field" id="budgetDays" type="number" min="1" max="60" value="3"></div>
+        <div class="control"><label class="label" for="hotel">Hotel per person / night (₹)</label><input class="field" id="hotel" type="number" min="0" value="1800"></div>
+        <div class="control"><label class="label" for="food">Food per person / day (₹)</label><input class="field" id="food" type="number" min="0" value="700"></div>
+        <div class="control"><label class="label" for="transport">Transport per person (₹)</label><input class="field" id="transport" type="number" min="0" value="1500"></div>
+        <div class="control"><label class="label" for="activities">Activities per person / day (₹)</label><input class="field" id="activities" type="number" min="0" value="500"></div>
       </div>
+      <button class="btn" id="calculateBudget">Calculate budget</button>
+      <div class="output" id="budgetOutput" aria-live="polite"><strong>₹ 0</strong><p>Enter your travel details and calculate.</p></div>
     </div>
-
-    <div class="search-tools">
-      <input class="field" id="search" type="search" placeholder="Search Manali, beaches, culture..." aria-label="Search destinations">
-      <select class="field" id="sort" aria-label="Sort destinations">
-        <option value="default">Featured destinations</option>
-        <option value="az">Name: A to Z</option>
-        <option value="budget">Estimated budget: low to high</option>
-      </select>
-    </div>
-
-    <div class="filters" aria-label="Destination categories">
-      <button class="filter-btn active" data-category="all">All places</button>
-      <button class="filter-btn" data-category="mountains">Mountains</button>
-      <button class="filter-btn" data-category="beaches">Beaches</button>
-      <button class="filter-btn" data-category="heritage">Heritage</button>
-      <button class="filter-btn" data-category="spiritual">Spiritual</button>
-      <button class="filter-btn" data-category="nature">Nature</button>
-    </div>
-
-    <div class="grid" id="destination-grid">
-      <article class="card" data-name="Manali" data-category="mountains" data-budget="6500">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=850&q=80" alt="Mountain scenery near Manali">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Mountains</span><span>🏔️</span></div>
-          <h3>Manali</h3><p>Explore Himalayan landscapes, pine forests and mountain adventures.</p>
-          <p><strong>From ₹6,500</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Manali">Plan a Manali trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Goa" data-category="beaches" data-budget="7000">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=850&q=80" alt="Beach in Goa">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Beaches</span><span>🏖️</span></div>
-          <h3>Goa</h3><p>Enjoy coastal scenery, sandy beaches and relaxed seaside days.</p>
-          <p><strong>From ₹7,000</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Goa">Plan a Goa trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Jaipur" data-category="heritage" data-budget="4500">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=850&q=80" alt="Historic architecture in Jaipur">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Heritage</span><span>🏰</span></div>
-          <h3>Jaipur</h3><p>Discover royal architecture, colourful markets and Rajasthani culture.</p>
-          <p><strong>From ₹4,500</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Jaipur">Plan a Jaipur trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Kerala" data-category="nature" data-budget="8000">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=850&q=80" alt="Kerala greenery and backwaters">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Nature</span><span>🌿</span></div>
-          <h3>Kerala</h3><p>Find lush landscapes, serene backwaters and tropical greenery.</p>
-          <p><strong>From ₹8,000</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Kerala">Plan a Kerala trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Kashmir" data-category="mountains" data-budget="9000">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=850&q=80" alt="Kashmir mountain landscape">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Mountains</span><span>❄️</span></div>
-          <h3>Kashmir</h3><p>Experience mountain views, lakes and beautiful valley scenery.</p>
-          <p><strong>From ₹9,000</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Kashmir">Plan a Kashmir trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Rishikesh" data-category="spiritual" data-budget="3500">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=850&q=80" alt="River and foothills in Rishikesh">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Spiritual</span><span>🧘</span></div>
-          <h3>Rishikesh</h3><p>Explore riverside walks, yoga, peaceful ghats and outdoor activities.</p>
-          <p><strong>From ₹3,500</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Rishikesh">Plan a Rishikesh trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Udaipur" data-category="heritage" data-budget="5000">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=850&q=80" alt="Udaipur palaces and lakes">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Heritage</span><span>🏛️</span></div>
-          <h3>Udaipur</h3><p>Enjoy lakeside scenery, historic palaces and timeless architecture.</p>
-          <p><strong>From ₹5,000</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Udaipur">Plan a Udaipur trip →</button>
-        </div>
-      </article>
-      <article class="card" data-name="Varanasi" data-category="spiritual" data-budget="4000">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=850&q=80" alt="Varanasi riverfront and historic buildings">
-        <div class="card-body">
-          <div class="card-top"><span class="tag">Spiritual</span><span>🪷</span></div>
-          <h3>Varanasi</h3><p>Discover historic ghats, local traditions and riverside heritage.</p>
-          <p><strong>From ₹4,000</strong> <span class="help">/ person, illustrative estimate</span></p>
-          <button class="btn btn-green choose-destination" data-place="Varanasi">Plan a Varanasi trip →</button>
-        </div>
-      </article>
-    </div>
-    <p class="empty" id="no-results" hidden>No destinations match your search. Try another keyword or category.</p>
-    <p class="help" style="margin-top:22px">All displayed budgets are illustrative examples, not live travel prices or booking quotes.</p>
+    <div class="panel"><h3>Budget tips</h3><p>Small choices can make a trip more affordable without losing the experience.</p><div class="itinerary-day"><strong>Travel in shoulder season</strong><br><span class="cost">Compare weekday and off-peak travel dates.</span></div><div class="itinerary-day"><strong>Book transport early</strong><br><span class="cost">Check cancellation rules before paying.</span></div><div class="itinerary-day"><strong>Keep a buffer</strong><br><span class="cost">Add 10–15% for unexpected costs.</span></div><div class="itinerary-day"><strong>Check local guidance</strong><br><span class="cost">Opening hours, permits and access can change. Confirm before departure.</span></div></div>
   </div>
 </section>
-
-<section class="soft-section">
-  <div class="container">
-    <div class="section-heading">
-      <div><div class="eyebrow">Travel made simpler</div><h2>Plan smarter, travel happier</h2></div>
-    </div>
-    <div class="feature-grid">
-      <article class="feature"><div class="feature-icon">🧭</div><h3>Discover places</h3><p>Search destinations and explore different types of experiences across India.</p></article>
-      <article class="feature"><div class="feature-icon">🗓️</div><h3>Build an itinerary</h3><p>Generate a sample day-wise travel plan based on your interests and trip duration.</p></article>
-      <article class="feature"><div class="feature-icon">₹</div><h3>Estimate your budget</h3><p>Adjust accommodation, food, transport and activity costs to plan your spending.</p></article>
-    </div>
-  </div>
-</section>
-
-<section id="planner">
-  <div class="container">
-    <div class="section-heading">
-      <div><div class="eyebrow">Your journey, your way</div><h2>Interactive trip planner</h2><p>Choose your preferences to create a sample itinerary.</p></div>
-    </div>
-    <div class="planner-layout">
-      <div class="panel">
-        <form id="planner-form">
-          <div class="form-grid">
-            <div class="form-group full">
-              <label for="trip-destination">Destination</label>
-              <select class="field" id="trip-destination" required>
-                <option>Manali</option><option>Goa</option><option>Jaipur</option><option>Kerala</option><option>Kashmir</option><option>Rishikesh</option><option>Udaipur</option><option>Varanasi</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="trip-days">Duration (days)</label>
-              <select class="field" id="trip-days">
-                <option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="trip-people">Travellers</label>
-              <input class="field" id="trip-people" type="number" min="1" max="30" value="2" required>
-            </div>
-            <div class="form-group full">
-              <label for="trip-style">Travel style</label>
-              <select class="field" id="trip-style">
-                <option value="budget">Budget-friendly</option>
-                <option value="comfort" selected>Comfort</option>
-                <option value="luxury">Luxury</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label for="trip-interest">Main interest</label>
-              <select class="field" id="trip-interest">
-                <option value="culture">Culture and sightseeing</option>
-                <option value="nature">Nature and outdoors</option>
-                <option value="food">Food and local experiences</option>
-                <option value="relax">Relaxation</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <button class="btn btn-green" type="submit">Generate My Itinerary →</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="panel">
-        <div class="eyebrow">Your travel outline</div>
-        <h3 id="itinerary-title">Your 3-day Manali escape</h3>
-        <p class="help">A sample plan generated locally from your selections. Activities are suggestions, not confirmed reservations.</p>
-        <div class="result" id="itinerary-result" aria-live="polite">
-          <p>Select your preferences and generate an itinerary to see your day-by-day plan.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="soft-section" id="budget">
-  <div class="container">
-    <div class="section-heading">
-      <div><div class="eyebrow">Plan your spending</div><h2>Travel budget calculator</h2><p>Change any amount to instantly recalculate your estimate.</p></div>
-    </div>
-    <div class="budget-layout">
-      <div class="panel">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="budget-people">Number of travellers</label>
-            <input class="field budget-input" id="budget-people" type="number" min="1" max="100" value="2">
-          </div>
-          <div class="form-group">
-            <label for="budget-nights">Nights of stay</label>
-            <input class="field budget-input" id="budget-nights" type="number" min="0" max="365" value="2">
-          </div>
-          <div class="form-group">
-            <label for="hotel-cost">Accommodation / room / night (₹)</label>
-            <input class="field budget-input" id="hotel-cost" type="number" min="0" max="10000000" value="2500">
-          </div>
-          <div class="form-group">
-            <label for="room-count">Rooms required</label>
-            <input class="field budget-input" id="room-count" type="number" min="1" max="100" value="1">
-          </div>
-          <div class="form-group">
-            <label for="food-cost">Food / person / day (₹)</label>
-            <input class="field budget-input" id="food-cost" type="number" min="0" max="1000000" value="600">
-          </div>
-          <div class="form-group">
-            <label for="transport-cost">Total transport for group (₹)</label>
-            <input class="field budget-input" id="transport-cost" type="number" min="0" max="100000000" value="3000">
-          </div>
-          <div class="form-group full">
-            <label for="activity-cost">Activities and entry fees / person (₹)</label>
-            <input class="field budget-input" id="activity-cost" type="number" min="0" max="10000000" value="1000">
-          </div>
-        </div>
-        <p class="help" style="margin-top:15px">Enter your own estimated prices. These are planning calculations, not quotes from travel providers.</p>
-      </div>
-      <div class="budget-total">
-        <span class="label">Estimated total trip cost</span>
-        <output id="budget-total" aria-live="polite">₹8,200</output>
-        <p id="budget-summary">Estimated cost for 2 travellers.</p>
-        <div class="breakdown"><span>Accommodation</span><strong id="hotel-total">₹5,000</strong></div>
-        <div class="breakdown"><span>Food</span><strong id="food-total">₹2,400</strong></div>
-        <div class="breakdown"><span>Transport</span><strong id="transport-total">₹3,000</strong></div>
-        <div class="breakdown"><span>Activities</span><strong id="activity-total">₹2,000</strong></div>
-        <div class="breakdown"><span>Per person</span><strong id="per-person">₹6,200</strong></div>
-        <p style="margin:15px 0 0">Adjust the fields to get your own estimate.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="container about">
-    <div>
-      <div class="eyebrow">Our story</div>
-      <h2>Made for curious travellers</h2>
-      <p>Explore India is a student-created travel discovery and planning project designed to make exploring destinations more approachable.</p>
-      <p>From finding inspiring places to building a sample itinerary and estimating a budget, this platform brings essential planning tools into one simple interface.</p>
-      <a class="btn btn-green" href="#planner">Start planning →</a>
-    </div>
-    <img loading="lazy" src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1000&q=85" alt="Indian heritage architecture">
-  </div>
-</section>
-
-<section class="soft-section" id="contact">
-  <div class="container">
-    <div class="section-heading">
-      <div><div class="eyebrow">Get in touch</div><h2>Tell us about your next trip</h2><p>Try the demo enquiry form below.</p></div>
-    </div>
-    <div class="contact-layout">
-      <div class="contact-copy">
-        <h3>Let's plan an adventure</h3>
-        <p>Have a destination in mind? Share your preferences using the form.</p>
-        <p>✉️ Demo contact form</p>
-        <p>🧭 Travel discovery and planning</p>
-        <p>📍 Exploring destinations across India</p>
-      </div>
-      <div class="panel">
-        <form id="contact-form">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="contact-name">Your name</label>
-              <input class="field" id="contact-name" required maxlength="80" placeholder="Enter your name">
-            </div>
-            <div class="form-group">
-              <label for="contact-email">Email address</label>
-              <input class="field" id="contact-email" type="email" required maxlength="150" placeholder="you@example.com">
-            </div>
-            <div class="form-group">
-              <label for="contact-place">Destination</label>
-              <select class="field" id="contact-place">
-                <option>Manali</option><option>Goa</option><option>Jaipur</option><option>Kerala</option><option>Kashmir</option><option>Rishikesh</option><option>Udaipur</option><option>Varanasi</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="contact-date">Preferred travel date</label>
-              <input class="field" id="contact-date" type="date">
-            </div>
-            <div class="form-group full">
-              <label for="contact-message">Your message</label>
-              <textarea class="field" id="contact-message" rows="4" maxlength="1000" placeholder="Tell us about your travel preferences"></textarea>
-            </div>
-            <div class="form-group full">
-              <button class="btn btn-green" type="submit">Preview Enquiry →</button>
-            </div>
-          </div>
-          <div id="contact-feedback" aria-live="polite"></div>
-          <p class="help">Demo only: this form does not send emails or store enquiries on a server.</p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="section" id="about"><div class="about"><img src="https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&w=1200&q=80" alt="Colourful Indian architecture"><div><div class="kicker">A little about us</div><h2>India is many journeys in one.</h2><p>Explore India is a student-built travel discovery website made to bring destination inspiration, simple itinerary planning and basic budget estimates into one place.</p><p>Destination details and cost figures are indicative. Always verify transport, accommodation, weather, local rules and attraction timings from official sources before travelling.</p><a class="btn" href="#destinations">Find your next destination →</a></div></div></section>
+<section class="contact" id="contact"><div class="section contact-row"><div><div class="kicker">Keep exploring</div><h2>Where will you go next?</h2><p class="section-intro">Save your favourite destinations, make a plan and start your next adventure.</p></div><a class="btn" href="#planner">Start planning →</a></div></section>
 </main>
-
-<footer>
-  <div class="container footer-row">
-    <div><strong>✦ EXPLORE INDIA</strong><p>Discover. Plan. Travel.</p></div>
-    <div><a href="#home">Home</a> · <a href="#destinations">Destinations</a> · <a href="#planner">Trip Planner</a></div>
-    <p>© 2026 Explore India. Student project for educational purposes.</p>
-  </div>
-</footer>
-
+<footer><div class="footer-inner"><span>✦ EXPLORE INDIA</span><span>Built for curious travellers · © <span id="year"></span> Explore India</span><span>Plan thoughtfully. Travel responsibly.</span></div></footer>
+<div class="toast" id="toast" role="status"></div>
 <script>
-"use strict";
-
-// Mobile navigation
-const menuToggle = document.getElementById("menu-toggle");
-const navLinks = document.getElementById("nav-links");
-
-menuToggle.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-});
-
-navLinks.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-  });
-});
-
-// Destination search, category filters and sorting
-const destinationGrid = document.getElementById("destination-grid");
-const searchField = document.getElementById("search");
-const sortField = document.getElementById("sort");
-const destinationCards = Array.from(destinationGrid.querySelectorAll(".card"));
-const filterButtons = document.querySelectorAll(".filter-btn");
-const noResults = document.getElementById("no-results");
-let activeCategory = "all";
-
-function updateDestinations() {
-  const query = searchField.value.trim().toLowerCase();
-
-  destinationCards.forEach(card => {
-    const searchableText = (
-      card.dataset.name + " " +
-      card.dataset.category + " " +
-      card.textContent
-    ).toLowerCase();
-
-    const matchesText = searchableText.includes(query);
-    const matchesCategory =
-      activeCategory === "all" ||
-      card.dataset.category === activeCategory;
-
-    card.hidden = !(matchesText && matchesCategory);
-  });
-
-  const visibleCards = destinationCards.filter(card => !card.hidden);
-  const sortMode = sortField.value;
-
-  visibleCards.sort((a, b) => {
-    if (sortMode === "az") {
-      return a.dataset.name.localeCompare(b.dataset.name);
-    }
-    if (sortMode === "budget") {
-      return Number(a.dataset.budget) - Number(b.dataset.budget);
-    }
-    return destinationCards.indexOf(a) - destinationCards.indexOf(b);
-  });
-
-  visibleCards.forEach(card => destinationGrid.appendChild(card));
-  noResults.hidden = visibleCards.length !== 0;
-}
-
-searchField.addEventListener("input", updateDestinations);
-sortField.addEventListener("change", updateDestinations);
-
-filterButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    activeCategory = button.dataset.category;
-    filterButtons.forEach(item =>
-      item.classList.toggle("active", item === button)
-    );
-    updateDestinations();
-  });
-});
-
-// Destination and itinerary suggestions
-const tripDestination = document.getElementById("trip-destination");
-const tripDays = document.getElementById("trip-days");
-const tripPeople = document.getElementById("trip-people");
-const tripStyle = document.getElementById("trip-style");
-const tripInterest = document.getElementById("trip-interest");
-const itineraryResult = document.getElementById("itinerary-result");
-const itineraryTitle = document.getElementById("itinerary-title");
-
-const destinationActivities = {
-  Manali: {
-    culture: ["Explore Old Manali and local cafés", "Visit Hadimba Temple", "Explore local markets"],
-    nature: ["Enjoy a mountain-view walk", "Explore nearby pine forests", "Enjoy a scenic valley viewpoint"],
-    food: ["Try local Himachali dishes", "Explore cafés and local bakeries", "Enjoy regional food"],
-    relax: ["Enjoy a peaceful riverside walk", "Spend time at a mountain-view café", "Enjoy a relaxed sightseeing day"]
-  },
-  Goa: {
-    culture: ["Explore Old Goa's historic sites", "Visit a local market", "Explore Portuguese-influenced architecture"],
-    nature: ["Enjoy a beach walk", "Explore a coastal viewpoint", "Discover a nature trail"],
-    food: ["Try local Goan cuisine", "Explore a local food market", "Enjoy a seaside meal"],
-    relax: ["Relax by the beach", "Enjoy a quiet coastal sunset", "Spend a relaxed day exploring the coast"]
-  },
-  Jaipur: {
-    culture: ["Explore the Hawa Mahal area", "Visit Amber Fort", "Explore Jaipur's historic markets"],
-    nature: ["Visit a garden or green space", "Explore a scenic viewpoint", "Enjoy an outdoor walk"],
-    food: ["Try Rajasthani cuisine", "Explore local street food", "Discover traditional sweets"],
-    relax: ["Enjoy a leisurely heritage walk", "Browse local craft shops", "Relax at a traditional café"]
-  },
-  Kerala: {
-    culture: ["Explore a local town", "Discover regional traditions", "Visit a local cultural attraction"],
-    nature: ["Explore the backwater scenery", "Visit a tea-growing region", "Enjoy a guided nature walk"],
-    food: ["Try Kerala cuisine", "Explore a local market", "Discover regional vegetarian dishes"],
-    relax: ["Enjoy a peaceful waterfront", "Spend time in a green landscape", "Enjoy a relaxed local excursion"]
-  },
-  Kashmir: {
-    culture: ["Explore a local heritage area", "Visit a craft market", "Discover regional traditions"],
-    nature: ["Enjoy a scenic valley viewpoint", "Explore a lakeside area", "Take a nature walk where conditions allow"],
-    food: ["Try Kashmiri cuisine", "Visit a local market", "Explore regional tea and food traditions"],
-    relax: ["Enjoy a peaceful lakeside walk", "Take in the mountain views", "Spend a relaxed day in the town"]
-  },
-  Rishikesh: {
-    culture: ["Explore the riverside ghats", "Visit a local temple area", "Walk across a famous suspension bridge"],
-    nature: ["Enjoy a riverside walk", "Explore nearby green trails", "Take in the foothill scenery"],
-    food: ["Try local cafés", "Explore regional vegetarian food", "Enjoy a riverside meal"],
-    relax: ["Try a yoga session", "Enjoy a peaceful riverside morning", "Spend time in a quiet café"]
-  },
-  Udaipur: {
-    culture: ["Explore the City Palace area", "Visit a local craft market", "Discover historic streets"],
-    nature: ["Enjoy a lakeside walk", "Explore a garden", "Take in the surrounding hill views"],
-    food: ["Try Rajasthani cuisine", "Explore local snacks", "Discover traditional sweets"],
-    relax: ["Enjoy a lakeside sunset", "Explore a relaxed café", "Take a leisurely heritage walk"]
-  },
-  Varanasi: {
-    culture: ["Explore the historic ghats", "Discover old-city streets", "Learn about local craft traditions"],
-    nature: ["Enjoy an early riverside walk", "Explore a nearby green space", "Observe the riverfront scenery"],
-    food: ["Try local street food", "Explore traditional sweets", "Discover regional vegetarian dishes"],
-    relax: ["Enjoy a quiet riverside morning", "Explore at a relaxed pace", "Spend time in a peaceful café"]
-  }
-};
-
-function generateItinerary() {
-  const place = tripDestination.value;
-  const days = Number(tripDays.value);
-  const people = Number(tripPeople.value);
-  const style = tripStyle.value;
-  const interest = tripInterest.value;
-
-  if (!Number.isInteger(people) || people < 1 || people > 30) {
-    tripPeople.setCustomValidity("Enter between 1 and 30 travellers.");
-    tripPeople.reportValidity();
-    return;
-  }
-  tripPeople.setCustomValidity("");
-
-  const activityList = destinationActivities[place][interest];
-  const styleLabel = {
-    budget: "Budget-friendly",
-    comfort: "Comfort",
-    luxury: "Luxury"
-  }[style];
-
-  itineraryTitle.textContent = "Your " + days + "-day " + place + " escape";
-  itineraryResult.replaceChildren();
-
-  const summary = document.createElement("p");
-  summary.textContent = styleLabel + " travel · " + people +
-    (people === 1 ? " traveller" : " travellers") + " · " + interest + " experiences";
-  itineraryResult.appendChild(summary);
-
-  for (let i = 0; i < days; i++) {
-    const day = document.createElement("div");
-    day.className = "result-day";
-
-    const heading = document.createElement("strong");
-    heading.textContent = "Day " + (i + 1) + " — " + activityList[i % activityList.length];
-
-    const detail = document.createElement("p");
-    detail.textContent = i === 0
-      ? "Arrive, settle in and begin exploring at a comfortable pace."
-      : i === days - 1
-        ? "Enjoy your final activity, allow time for local exploration and prepare for departure."
-        : "Allow time for meals, travel between attractions and breaks.";
-
-    day.append(heading, detail);
-    itineraryResult.appendChild(day);
-  }
-
-  const disclaimer = document.createElement("p");
-  disclaimer.className = "help";
-  disclaimer.style.marginTop = "14px";
-  disclaimer.textContent = "Suggested outline only. Check opening hours, weather, transport and local conditions before travelling.";
-  itineraryResult.appendChild(disclaimer);
-}
-
-document.getElementById("planner-form").addEventListener("submit", event => {
-  event.preventDefault();
-  generateItinerary();
-});
-
-document.querySelectorAll(".choose-destination").forEach(button => {
-  button.addEventListener("click", () => {
-    tripDestination.value = button.dataset.place;
-    generateItinerary();
-    document.getElementById("planner").scrollIntoView({ behavior: "smooth" });
-  });
-});
-
-// Travel budget calculator
-const money = amount => new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  maximumFractionDigits: 0
-}).format(amount);
-
-const budgetIds = [
-  "budget-people", "budget-nights", "hotel-cost",
-  "room-count", "food-cost", "transport-cost", "activity-cost"
+const destinations = [
+{name:"Agra",state:"Uttar Pradesh",region:"North",category:"Heritage",cost:2200,days:2,desc:"Mughal architecture, the Taj Mahal and historic forts.",image:"photo-1564507592333-c60657eea523",spots:["Taj Mahal","Agra Fort","Mehtab Bagh"]},
+{name:"Varanasi",state:"Uttar Pradesh",region:"North",category:"Spiritual",cost:1800,days:2,desc:"Sacred riverfronts, old lanes and evening aarti.",image:"photo-1561361513-2d000a50f0dc",spots:["Dashashwamedh Ghat","Assi Ghat","Sarnath"]},
+{name:"Rishikesh",state:"Uttarakhand",region:"North",category:"Adventure",cost:2000,days:3,desc:"River views, yoga, bridges and outdoor adventures.",image:"photo-1581793745862-99d8f3d5b8f9",spots:["Lakshman Jhula area","Triveni Ghat","Neer Garh Waterfall"]},
+{name:"Haridwar",state:"Uttarakhand",region:"North",category:"Spiritual",cost:1600,days:2,desc:"Temple visits and the Ganga Aarti by the river.",image:"photo-1606293926075-69a00dbfde81",spots:["Har Ki Pauri","Mansa Devi Temple","Bharat Mata Mandir"]},
+{name:"Mussoorie",state:"Uttarakhand",region:"North",category:"Mountains",cost:2600,days:3,desc:"Hilltop viewpoints, forest walks and cool mountain air.",image:"photo-1626621341517-bbf3d9990a23",spots:["Gun Hill","Lal Tibba","Kempty Falls"]},
+{name:"Nainital",state:"Uttarakhand",region:"North",category:"Mountains",cost:2500,days:3,desc:"A lake town with boat rides, viewpoints and wooded hills.",image:"photo-1597074866923-dc0589150358",spots:["Naini Lake","Snow View Point","Mall Road"]},
+{name:"Amritsar",state:"Punjab",region:"North",category:"Heritage",cost:1900,days:2,desc:"Punjabi hospitality, history and the Golden Temple.",image:"photo-1514222134-b57cbb8ce073",spots:["Golden Temple","Jallianwala Bagh","Wagah Border"]},
+{name:"Srinagar",state:"Jammu & Kashmir",region:"North",category:"Nature",cost:3500,days:4,desc:"Dal Lake, gardens and mountain scenery.",image:"photo-1595815771614-ade9d652a65d",spots:["Dal Lake","Mughal Gardens","Shankaracharya Temple"]},
+{name:"Gulmarg",state:"Jammu & Kashmir",region:"North",category:"Mountains",cost:4200,days:3,desc:"Alpine meadows, snow views and mountain gondola rides.",image:"photo-1566837497312-7be4a667f6a9",spots:["Gulmarg Gondola","Golf Course meadow","St Mary's Church"]},
+{name:"Leh",state:"Ladakh",region:"North",category:"Adventure",cost:4500,days:5,desc:"High-altitude landscapes, monasteries and stark mountain passes.",image:"photo-1581793745862-99d8f3d5b8f9",spots:["Leh Palace","Shanti Stupa","Thiksey Monastery"]},
+{name:"Dharamshala",state:"Himachal Pradesh",region:"North",category:"Mountains",cost:2800,days:3,desc:"Pine forests, Tibetan culture and Himalayan views.",image:"photo-1626621341517-bbf3d9990a23",spots:["McLeod Ganj","Namgyal Monastery","Bhagsu Waterfall"]},
+{name:"Bir Billing",state:"Himachal Pradesh",region:"North",category:"Adventure",cost:2600,days:3,desc:"A relaxed mountain village known for paragliding.",image:"photo-1464822759023-fed622ff2c3b",spots:["Billing take-off point","Bir landing site","Sherab Ling Monastery"]},
+{name:"Jaisalmer",state:"Rajasthan",region:"West",category:"Heritage",cost:2800,days:3,desc:"Golden sandstone architecture and Thar Desert experiences.",image:"photo-1477587458883-47145ed94245",spots:["Jaisalmer Fort","Patwon Ki Haveli","Sam Sand Dunes"]},
+{name:"Jodhpur",state:"Rajasthan",region:"West",category:"Heritage",cost:2400,days:2,desc:"Blue-painted old-city lanes beneath a grand hilltop fort.",image:"photo-1599661046827-dacff0c0f09a",spots:["Mehrangarh Fort","Jaswant Thada","Clock Tower Market"]},
+{name:"Udaipur",state:"Rajasthan",region:"West",category:"Heritage",cost:3000,days:3,desc:"Romantic lakes, palaces and sunset viewpoints.",image:"photo-1577083552431-6e5fd01aa342",spots:["City Palace","Lake Pichola","Saheliyon-ki-Bari"]},
+{name:"Pushkar",state:"Rajasthan",region:"West",category:"Spiritual",cost:1800,days:2,desc:"A sacred lake, colourful bazaars and desert-town charm.",image:"photo-1477587458883-47145ed94245",spots:["Pushkar Lake","Brahma Temple","Savitri Temple"]},
+{name:"Mumbai",state:"Maharashtra",region:"West",category:"City",cost:3500,days:3,desc:"Coastal promenades, art deco architecture and lively food streets.",image:"photo-1570168007204-dfb528c6958f",spots:["Gateway of India","Marine Drive","Chhatrapati Shivaji Maharaj Terminus"]},
+{name:"Pune",state:"Maharashtra",region:"West",category:"City",cost:2600,days:2,desc:"Cafés, heritage landmarks and nearby green hills.",image:"photo-1595658658481-d53d3f999875",spots:["Shaniwar Wada","Aga Khan Palace","Sinhagad Fort"]},
+{name:"Mahabaleshwar",state:"Maharashtra",region:"West",category:"Nature",cost:2800,days:3,desc:"Forest roads, strawberry farms and misty viewpoints.",image:"photo-1472396961693-142e6e269027",spots:["Arthur's Seat","Venna Lake","Mapro Garden"]},
+{name:"Goa",state:"Goa",region:"West",category:"Beach",cost:3200,days:4,desc:"Golden beaches, Portuguese-era lanes and laid-back coastal life.",image:"photo-1512343879784-a960bf40e7f2",spots:["Baga Beach","Fontainhas","Dudhsagar area"]},
+{name:"Rann of Kutch",state:"Gujarat",region:"West",category:"Nature",cost:3000,days:3,desc:"Vast white salt flats, craft villages and seasonal cultural festivals.",image:"photo-1500530855697-b586d89ba3ee",spots:["White Rann","Kala Dungar","Hodka village"]},
+{name:"Ahmedabad",state:"Gujarat",region:"West",category:"Heritage",cost:2200,days:2,desc:"Stepwells, old-city pols and modern design landmarks.",image:"photo-1567157577867-05ccb1388e66",spots:["Sabarmati Ashram","Adalaj Stepwell","Old City"]},
+{name:"Statue of Unity",state:"Gujarat",region:"West",category:"City",cost:2600,days:2,desc:"A monumental landmark surrounded by river and forest scenery.",image:"photo-1500530855697-b586d89ba3ee",spots:["Statue of Unity","Valley of Flowers","Sardar Sarovar viewpoint"]},
+{name:"Kochi",state:"Kerala",region:"South",category:"Heritage",cost:2800,days:3,desc:"Harbour history, art cafés and the famous Chinese fishing nets.",image:"photo-1593693411515-c20261bcad6e",spots:["Fort Kochi","Mattancherry Palace","Chinese fishing nets"]},
+{name:"Munnar",state:"Kerala",region:"South",category:"Nature",cost:3000,days:3,desc:"Rolling tea estates, cool weather and forested hills.",image:"photo-1593693411515-c20261bcad6e",spots:["Tea Museum","Eravikulam National Park","Top Station"]},
+{name:"Alappuzha",state:"Kerala",region:"South",category:"Nature",cost:3200,days:2,desc:"Backwaters, canals and slow journeys through village landscapes.",image:"photo-1602216056096-3b40cc0c9944",spots:["Alappuzha Beach","Backwater cruise","Pathiramanal area"]},
+{name:"Wayanad",state:"Kerala",region:"South",category:"Nature",cost:2700,days:3,desc:"Rainforest trails, waterfalls and ancient cave sites.",image:"photo-1472396961693-142e6e269027",spots:["Edakkal Caves","Soochipara Falls","Pookode Lake"]},
+{name:"Kovalam",state:"Kerala",region:"South",category:"Beach",cost:2800,days:2,desc:"Curved beaches, lighthouse views and coastal sunsets.",image:"photo-1500375592092-40eb2168fd21",spots:["Lighthouse Beach","Hawa Beach","Samudra Beach"]},
+{name:"Mysuru",state:"Karnataka",region:"South",category:"Heritage",cost:2200,days:2,desc:"A royal palace city with markets, gardens and local cuisine.",image:"photo-1600100397608-f0107b1b7b5d",spots:["Mysuru Palace","Chamundi Hill","Devaraja Market"]},
+{name:"Hampi",state:"Karnataka",region:"South",category:"Heritage",cost:2400,days:3,desc:"Monumental ruins and boulder-strewn landscapes from the Vijayanagara era.",image:"photo-1600100397608-f0107b1b7b5d",spots:["Virupaksha Temple","Vijaya Vittala Temple","Hemakuta Hill"]},
+{name:"Coorg",state:"Karnataka",region:"South",category:"Nature",cost:2800,days:3,desc:"Coffee plantations, forested hills and waterfall escapes.",image:"photo-1472396961693-142e6e269027",spots:["Abbey Falls","Raja's Seat","Coffee estate visit"]},
+{name:"Bengaluru",state:"Karnataka",region:"South",category:"City",cost:3000,days:2,desc:"Gardens, technology culture, breweries and food neighbourhoods.",image:"photo-1596176530529-78163a4f7af2",spots:["Lalbagh Botanical Garden","Cubbon Park","Bengaluru Palace"]},
+{name:"Chennai",state:"Tamil Nadu",region:"South",category:"City",cost:2500,days:2,desc:"Classical arts, coastal walks and South Indian food traditions.",image:"photo-1582510003544-4d00b7f74220",spots:["Marina Beach","Kapaleeshwarar Temple","Fort St George"]},
+{name:"Mahabalipuram",state:"Tamil Nadu",region:"South",category:"Heritage",cost:2400,days:2,desc:"Shore temples and stone carvings beside the Bay of Bengal.",image:"photo-1582510003544-4d00b7f74220",spots:["Shore Temple","Pancha Rathas","Arjuna's Penance"]},
+{name:"Madurai",state:"Tamil Nadu",region:"South",category:"Spiritual",cost:1900,days:2,desc:"A historic temple city full of colour, rituals and street food.",image:"photo-1606293926075-69a00dbfde81",spots:["Meenakshi Amman Temple","Thirumalai Nayakkar Palace","Gandhi Memorial Museum"]},
+{name:"Ooty",state:"Tamil Nadu",region:"South",category:"Mountains",cost:2800,days:3,desc:"Tea gardens, a heritage mountain railway and cool hills.",image:"photo-1464822759023-fed622ff2c3b",spots:["Nilgiri Mountain Railway","Ooty Lake","Doddabetta Peak"]},
+{name:"Puducherry",state:"Puducherry",region:"South",category:"Beach",cost:2600,days:2,desc:"French Quarter streets, seaside promenades and cafés.",image:"photo-1500375592092-40eb2168fd21",spots:["White Town","Promenade Beach","Auroville area"]},
+{name:"Hyderabad",state:"Telangana",region:"South",category:"Heritage",cost:2500,days:2,desc:"Historic monuments, markets and iconic Hyderabadi cuisine.",image:"photo-1565043666747-69f6646db940",spots:["Charminar","Golconda Fort","Salar Jung Museum"]},
+{name:"Visakhapatnam",state:"Andhra Pradesh",region:"South",category:"Beach",cost:2400,days:2,desc:"Coastal viewpoints, beaches and green hills meeting the sea.",image:"photo-1500375592092-40eb2168fd21",spots:["RK Beach","Kailasagiri","Yarada Beach"]},
+{name:"Tirupati",state:"Andhra Pradesh",region:"South",category:"Spiritual",cost:2000,days:2,desc:"A major pilgrimage destination set among forested hills.",image:"photo-1606293926075-69a00dbfde81",spots:["Tirumala Temple","Sri Padmavathi Temple","Kapila Theertham"]},
+{name:"Kolkata",state:"West Bengal",region:"East",category:"City",cost:2300,days:2,desc:"Colonial-era architecture, bookshops, art and distinctive street food.",image:"photo-1558431382-27e303142255",spots:["Victoria Memorial","Howrah Bridge","College Street"]},
+{name:"Darjeeling",state:"West Bengal",region:"East",category:"Mountains",cost:3000,days:3,desc:"Tea gardens, toy-train heritage and Himalayan sunrise views.",image:"photo-1544735716-392fe2489ffa",spots:["Tiger Hill","Darjeeling Himalayan Railway","Batasia Loop"]},
+{name:"Sundarbans",state:"West Bengal",region:"East",category:"Nature",cost:3500,days:3,desc:"Mangrove waterways and wildlife landscapes explored with local guides.",image:"photo-1472396961693-142e6e269027",spots:["Sajnekhali area","Mangrove boat route","Local village experience"]},
+{name:"Bhubaneswar",state:"Odisha",region:"East",category:"Heritage",cost:2100,days:2,desc:"Temple architecture, museums and a gateway to Odisha's heritage.",image:"photo-1606293926075-69a00dbfde81",spots:["Lingaraj Temple","Udayagiri and Khandagiri Caves","Dhauli Shanti Stupa"]},
+{name:"Puri",state:"Odisha",region:"East",category:"Spiritual",cost:2200,days:2,desc:"A revered temple town with a broad sandy coastline.",image:"photo-1500375592092-40eb2168fd21",spots:["Jagannath Temple","Puri Beach","Konark Sun Temple day trip"]},
+{name:"Konark",state:"Odisha",region:"East",category:"Heritage",cost:1800,days:1,desc:"Sculpted stone architecture and a celebrated Sun Temple.",image:"photo-1606293926075-69a00dbfde81",spots:["Konark Sun Temple","Chandrabhaga Beach","ASI Museum"]},
+{name:"Shillong",state:"Meghalaya",region:"Northeast",category:"Nature",cost:2800,days:3,desc:"Pine-covered hills, waterfalls and a lively hill-town atmosphere.",image:"photo-1464822759023-fed622ff2c3b",spots:["Umiam Lake","Elephant Falls","Shillong Peak"]},
+{name:"Cherrapunji",state:"Meghalaya",region:"Northeast",category:"Adventure",cost:3200,days:3,desc:"Dramatic cliffs, living root bridges and monsoon landscapes.",image:"photo-1472396961693-142e6e269027",spots:["Nohkalikai Falls","Double Decker Living Root Bridge","Mawsmai Cave"]},
+{name:"Kaziranga",state:"Assam",region:"Northeast",category:"Nature",cost:3500,days:2,desc:"Grasslands and wildlife safaris in a UNESCO-listed national park.",image:"photo-1472396961693-142e6e269027",spots:["Central safari range","Kohora village","Orchid park"]},
+{name:"Gangtok",state:"Sikkim",region:"Northeast",category:"Mountains",cost:3200,days:3,desc:"Mountain panoramas, monasteries and colourful hillside streets.",image:"photo-1544735716-392fe2489ffa",spots:["MG Marg","Rumtek Monastery","Tashi View Point"]},
+{name:"Tawang",state:"Arunachal Pradesh",region:"Northeast",category:"Mountains",cost:3800,days:4,desc:"High mountain passes, monasteries and remote Himalayan scenery.",image:"photo-1464822759023-fed622ff2c3b",spots:["Tawang Monastery","Sela Pass","Nuranang Falls"]},
+{name:"Ziro Valley",state:"Arunachal Pradesh",region:"Northeast",category:"Nature",cost:3000,days:3,desc:"Green valley scenery, rice fields and distinctive local culture.",image:"photo-1472396961693-142e6e269027",spots:["Apatani villages","Paddy fields","Talley Valley area"]},
+{name:"Guwahati",state:"Assam",region:"Northeast",category:"Spiritual",cost:2200,days:2,desc:"A river city and gateway to Assam's temples and culture.",image:"photo-1561361513-2d000a50f0dc",spots:["Kamakhya Temple","Brahmaputra riverfront","Umananda Island"]},
+{name:"Khajuraho",state:"Madhya Pradesh",region:"Central",category:"Heritage",cost:2200,days:2,desc:"Intricate temple sculpture and remarkable medieval architecture.",image:"photo-1606293926075-69a00dbfde81",spots:["Western Group of Temples","Eastern Group of Temples","Archaeological Museum"]},
+{name:"Orchha",state:"Madhya Pradesh",region:"Central",category:"Heritage",cost:2000,days:2,desc:"Riverside cenotaphs, palaces and a quiet historic town.",image:"photo-1567157577867-05ccb1388e66",spots:["Orchha Fort complex","Chaturbhuj Temple","Betwa riverfront"]},
+{name:"Kanha National Park",state:"Madhya Pradesh",region:"Central",category:"Nature",cost:4200,days:3,desc:"Forest safaris and grasslands in a celebrated tiger reserve.",image:"photo-1472396961693-142e6e269027",spots:["Kanha safari zone","Kanha Museum","Nature interpretation centre"]},
+{name:"Pachmarhi",state:"Madhya Pradesh",region:"Central",category:"Nature",cost:2600,days:3,desc:"Waterfalls, caves and forest trails in the Satpura hills.",image:"photo-1472396961693-142e6e269027",spots:["Bee Falls","Dhoopgarh","Pandava Caves"]},
+{name:"Raipur",state:"Chhattisgarh",region:"Central",category:"City",cost:1900,days:2,desc:"A convenient base for regional culture, lakes and nearby nature.",image:"photo-1567157577867-05ccb1388e66",spots:["Purkhouti Muktangan","Nandan Van","Mahant Ghasidas Museum"]},
+{name:"Andaman Islands",state:"Andaman and Nicobar Islands",region:"Islands",category:"Beach",cost:5200,days:5,desc:"Clear waters, coral reefs and tropical island beaches.",image:"photo-1500375592092-40eb2168fd21",spots:["Radhanagar Beach","Cellular Jail","Elephant Beach"]},
+{name:"Lakshadweep",state:"Lakshadweep",region:"Islands",category:"Beach",cost:6500,days:5,desc:"Remote coral islands, lagoons and marine experiences.",image:"photo-1500375592092-40eb2168fd21",spots:["Agatti lagoon","Bangaram Island","Kavaratti"]},
+{name:"Ajanta Caves",state:"Maharashtra",region:"West",category:"Heritage",cost:2100,days:2,desc:"Ancient rock-cut Buddhist caves and extraordinary mural art.",image:"photo-1606293926075-69a00dbfde81",spots:["Ajanta Cave complex","Viewpoint","Local interpretation centre"]},
+{name:"Bodh Gaya",state:"Bihar",region:"East",category:"Spiritual",cost:1700,days:2,desc:"An important Buddhist pilgrimage site centred on the Mahabodhi Temple.",image:"photo-1606293926075-69a00dbfde81",spots:["Mahabodhi Temple","Great Buddha Statue","International monasteries"]},
+{name:"Rajgir",state:"Bihar",region:"East",category:"Nature",cost:1900,days:2,desc:"Hills, ancient sites and a long history of Buddhist and Jain traditions.",image:"photo-1472396961693-142e6e269027",spots:["Vishwa Shanti Stupa","Griddhakuta Hill","Cyclopean Wall"]},
+{name:"Diu",state:"Dadra and Nagar Haveli and Daman and Diu",region:"West",category:"Beach",cost:2700,days:2,desc:"Quiet beaches, Portuguese heritage and coastal fort views.",image:"photo-1500375592092-40eb2168fd21",spots:["Diu Fort","Nagoa Beach","St Paul's Church"]},
+{name:"Bikaner",state:"Rajasthan",region:"West",category:"Heritage",cost:2200,days:2,desc:"Desert architecture, lively bazaars and regional cuisine.",image:"photo-1477587458883-47145ed94245",spots:["Junagarh Fort","Rampuria Havelis","National Research Centre on Camel"]}
 ];
-
-function getNumber(id) {
-  const element = document.getElementById(id);
-  const value = Number(element.value);
-  const min = Number(element.min);
-  const max = Number(element.max);
-
-  if (element.value.trim() === "" || !Number.isFinite(value) ||
-      value < min || value > max) {
-    element.setCustomValidity("Enter a value between " + min + " and " + max + ".");
-    element.reportValidity();
-    return null;
-  }
-
-  element.setCustomValidity("");
-  return value;
+const originalCards = [
+{name:"Manali",state:"Himachal Pradesh",region:"North",category:"Mountains",cost:3000,days:3,desc:"Mountain views, pine forests and relaxed Himalayan escapes.",image:"photo-1626621341517-bbf3d9990a23",spots:["Old Manali","Solang Valley","Hadimba Temple"]},
+{name:"Jaipur",state:"Rajasthan",region:"West",category:"Heritage",cost:2500,days:2,desc:"Pink City palaces, colourful markets and royal history.",image:"photo-1599661046827-dacff0c0f09a",spots:["Hawa Mahal","Amber Fort","City Palace"]},
+{name:"Goa",state:"Goa",region:"West",category:"Beach",cost:3200,days:4,desc:"Golden beaches, Portuguese-era lanes and laid-back coastal life.",image:"photo-1512343879784-a960bf40e7f2",spots:["Baga Beach","Fontainhas","Dudhsagar area"]}
+];
+// Avoid duplicate Goa in the expanded catalogue.
+const allDestinations = [...originalCards.filter(d=>d.name!=="Goa"), ...destinations];
+const imageUrl = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=78`;
+const money = n => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
+const grid = document.getElementById("destinationGrid");
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+const sortFilter = document.getElementById("sortFilter");
+const resultCount = document.getElementById("resultCount");
+let activeRegion="All";
+let tripItems=[];
+function renderDestinations(){
+ let q=searchInput.value.trim().toLowerCase();
+ let list=allDestinations.filter(d=>{
+   let text=`${d.name} ${d.state} ${d.region} ${d.category} ${d.desc}`.toLowerCase();
+   return text.includes(q) && (categoryFilter.value==="All"||d.category===categoryFilter.value) && (activeRegion==="All"||d.region===activeRegion);
+ });
+ if(sortFilter.value==="az") list.sort((a,b)=>a.name.localeCompare(b.name));
+ if(sortFilter.value==="costLow") list.sort((a,b)=>a.cost-b.cost);
+ if(sortFilter.value==="costHigh") list.sort((a,b)=>b.cost-a.cost);
+ resultCount.textContent=`Showing ${list.length} of ${allDestinations.length} destinations`;
+ grid.innerHTML=list.length?list.map(d=>`<article class="card">
+ <img loading="lazy" src="${imageUrl(d.image)}" alt="${d.name}, ${d.state}" onerror="this.onerror=null;this.src='https://placehold.co/900x600/e8eee6/174d3a?text=${encodeURIComponent(d.name)}'">
+ <div class="card-body"><div class="tag-row"><span class="tag">${d.category}</span><span class="cost">From ${money(d.cost)}/day</span></div>
+ <h3>${d.name}</h3><div class="cost">${d.state}</div><p>${d.desc}</p><div class="card-foot"><span class="cost">Suggested: ${d.days} days</span><button class="small-btn" data-add="${d.name}">＋ Add to trip</button></div></div></article>`).join(""):`<div class="empty">No destinations match your search. Try another name, region or experience.</div>`;
+ grid.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addTrip(b.dataset.add)));
 }
-
-function updateBudget() {
-  const values = {};
-  for (const id of budgetIds) {
-    const value = getNumber(id);
-    if (value === null) return;
-    values[id] = value;
-  }
-
-  const people = values["budget-people"];
-  const nights = values["budget-nights"];
-  const rooms = values["room-count"];
-
-  if (!Number.isInteger(people) || !Number.isInteger(nights) ||
-      !Number.isInteger(rooms)) {
-    document.getElementById("budget-summary").textContent =
-      "Travellers, nights and rooms must be whole numbers.";
-    return;
-  }
-
-  const hotel = nights * values["hotel-cost"] * rooms;
-  const food = people * (nights + 1) * values["food-cost"];
-  const transport = values["transport-cost"];
-  const activities = people * values["activity-cost"];
-  const total = hotel + food + transport + activities;
-
-  document.getElementById("budget-total").textContent = money(total);
-  document.getElementById("hotel-total").textContent = money(hotel);
-  document.getElementById("food-total").textContent = money(food);
-  document.getElementById("transport-total").textContent = money(transport);
-  document.getElementById("activity-total").textContent = money(activities);
-  document.getElementById("per-person").textContent = money(total / people);
-  document.getElementById("budget-summary").textContent =
-    "Estimated cost for " + people + (people === 1 ? " traveller" : " travellers") +
-    " across " + nights + (nights === 1 ? " night." : " nights.");
+function populateSelects(){
+ const opts=allDestinations.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(d=>`<option value="${d.name}">${d.name} — ${d.state}</option>`).join("");
+ document.getElementById("plannerDestination").innerHTML=opts;
+ document.getElementById("budgetDestination").innerHTML=opts;
 }
-
-document.querySelectorAll(".budget-input").forEach(input => {
-  input.addEventListener("input", updateBudget);
-  input.addEventListener("change", updateBudget);
-});
-
-// Contact form demo: validate and show a local preview only.
-document.getElementById("contact-form").addEventListener("submit", event => {
-  event.preventDefault();
-
-  const name = document.getElementById("contact-name").value.trim();
-  const email = document.getElementById("contact-email").value.trim();
-  const place = document.getElementById("contact-place").value;
-  const date = document.getElementById("contact-date").value;
-  const message = document.getElementById("contact-message").value.trim();
-  const feedback = document.getElementById("contact-feedback");
-
-  feedback.replaceChildren();
-
-  const notice = document.createElement("div");
-  notice.className = "success";
-
-  const title = document.createElement("strong");
-  title.textContent = "Enquiry preview ready, " + name + "!";
-
-  const detail = document.createElement("p");
-  detail.textContent = "Destination: " + place +
-    (date ? " · Preferred date: " + date : "") +
-    (message ? " · Message: " + message : "") +
-    ". This is a local demo only; nothing has been sent or stored.";
-
-  notice.append(title, detail);
-  feedback.appendChild(notice);
-});
-
-// Initialize the interactive sections
-generateItinerary();
-updateBudget();
-updateDestinations();
+function addTrip(name){
+ if(!tripItems.includes(name))tripItems.push(name);
+ renderTripList();showToast(`${name} added to your trip list`);
+}
+function renderTripList(){
+ const el=document.getElementById("tripList");
+ if(!tripItems.length){el.innerHTML='<p class="cost">No destinations added yet. Choose “Add to trip” on any destination card.</p>';return;}
+ el.innerHTML=tripItems.map(n=>`<div class="itinerary-day" style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span><strong>${n}</strong><br><span class="cost">${allDestinations.find(d=>d.name===n)?.state||""}</span></span><button class="small-btn" data-remove="${n}">Remove</button></div>`).join("");
+ el.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{tripItems=tripItems.filter(n=>n!==b.dataset.remove);renderTripList();}));
+}
+function generatePlan(){
+ const name=document.getElementById("plannerDestination").value;
+ const d=allDestinations.find(x=>x.name===name);
+ const days=Number(document.getElementById("tripDays").value);
+ const style=document.getElementById("tripStyle").value;
+ const spots=d.spots||[`${name} main attractions`,`Local market and food walk`,`Nearby viewpoint`];
+ let html=`<strong>${name}: ${days}-day starter plan</strong><p class="cost">${d.state} · ${style} · Flexible sample itinerary</p>`;
+ for(let i=0;i<days;i++){
+   const first=spots[(i*2)%spots.length],second=spots[(i*2+1)%spots.length];
+   let extra=style==="Culture & food"?"Add a local food stop and heritage walk.":style==="Nature & outdoors"?"Leave time for a scenic walk and weather checks.":style==="Relaxed"?"Keep this day flexible and allow time to rest.":style==="Adventure"?"Check operators, safety rules and seasonal access in advance.":"Mix one key sight with a relaxed local experience.";
+   html+=`<div class="itinerary-day"><strong>Day ${i+1}</strong><br>${first}${second!==first?" · "+second:""}<br><span class="cost">${extra}</span></div>`;
+ }
+ html+=`<p class="cost">Starter plan only: confirm local timings, transport, permits and weather before travelling.</p>`;
+ document.getElementById("plannerOutput").innerHTML=html;
+}
+function calculateBudget(){
+ const people=Math.max(1,Math.min(30,Number(document.getElementById("people").value)||1));
+ const days=Math.max(1,Math.min(60,Number(document.getElementById("budgetDays").value)||1));
+ const hotel=Math.max(0,Number(document.getElementById("hotel").value)||0);
+ const food=Math.max(0,Number(document.getElementById("food").value)||0);
+ const transport=Math.max(0,Number(document.getElementById("transport").value)||0);
+ const activities=Math.max(0,Number(document.getElementById("activities").value)||0);
+ const lodging=hotel*Math.max(0,days-1)*people,meals=food*days*people,local=transport*people,fun=activities*days*people;
+ const subtotal=lodging+meals+local+fun,buffer=subtotal*.12,total=subtotal+buffer;
+ document.getElementById("budgetOutput").innerHTML=`<span class="cost">Estimated group total · ${people} traveller(s) · ${days} day(s)</span><br><strong>${money(total)}</strong><ul><li>Accommodation: ${money(lodging)}</li><li>Food: ${money(meals)}</li><li>Transport: ${money(local)}</li><li>Activities: ${money(fun)}</li><li>12% contingency: ${money(buffer)}</li></ul><p class="cost">Approx. ${money(total/people)} per person. Estimate excludes flights/long-distance tickets unless included in transport.</p>`;
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
+searchInput.addEventListener("input",renderDestinations);
+categoryFilter.addEventListener("change",renderDestinations);
+sortFilter.addEventListener("change",renderDestinations);
+document.getElementById("regionChips").querySelectorAll("[data-region]").forEach(b=>b.addEventListener("click",()=>{activeRegion=b.dataset.region;document.querySelectorAll("[data-region]").forEach(c=>c.classList.toggle("active",c===b));renderDestinations();}));
+document.getElementById("generatePlan").addEventListener("click",generatePlan);
+document.getElementById("clearTrip").addEventListener("click",()=>{tripItems=[];renderTripList();showToast("Trip list cleared");});
+document.getElementById("useFirstTrip").addEventListener("click",()=>{if(!tripItems.length){showToast("Add a destination to your trip list first");return;}document.getElementById("plannerDestination").value=tripItems[0];generatePlan();document.getElementById("planner").scrollIntoView({behavior:"smooth"});});
+document.getElementById("calculateBudget").addEventListener("click",calculateBudget);
+document.getElementById("budgetDestination").addEventListener("change",()=>{const d=allDestinations.find(x=>x.name===document.getElementById("budgetDestination").value);if(d){document.getElementById("hotel").value=Math.round(d.cost*.55/100)*100;document.getElementById("food").value=Math.round(d.cost*.22/50)*50;document.getElementById("transport").value=Math.round(d.cost*.35/100)*100;document.getElementById("activities").value=Math.round(d.cost*.16/50)*50;}});
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("navlinks").classList.toggle("open"));
+document.querySelectorAll("#navlinks a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navlinks").classList.remove("open")));
+document.getElementById("year").textContent=new Date().getFullYear();
+populateSelects();renderDestinations();calculateBudget();generatePlan();
 </script>
 </body>
 </html>
